@@ -13,12 +13,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update && \
   rm -rf /var/lib/apt/lists/*
 
 # Stage Files
-RUN wget -q -O PocketMine-MP.phar - https://bintray.com/pocketmine/PocketMine/download_file?file_path=PocketMine-MP_1.6dev-27_ef8227a0_API-2.0.0.phar
-RUN wget -q -O PHP_7.0.6_x86-64_Linux.tar.gz - https://bintray.com/pocketmine/PocketMine/download_file?file_path=PHP_7.0.6_x86-64_Linux.tar.gz && tar -xvf PHP_7.0.6_x86-64_Linux.tar.gz
+COPY PocketMine-MP.phar /PocketMine-MP.phar
 COPY server.properties /tmp/server.properties
-RUN wget -q -O start.sh - https://raw.githubusercontent.com/PocketMine/PocketMine-MP/master/start.sh
-# COPY start.sh /start.sh
+RUN wget https://raw.githubusercontent.com/PocketMine/PocketMine-MP/master/start.sh
 RUN chmod 755 /start.sh
+RUN wget -O PHP.tar.gz https://bintray.com/pocketmine/PocketMine/download_file?file_path=PHP_7.0.6_x86-64_Linux.tar.gz
+RUN tar -xf PHP.tar.gz
 
 # Setup User
 RUN useradd -d /data -s /bin/bash --uid 1000 minecraft
