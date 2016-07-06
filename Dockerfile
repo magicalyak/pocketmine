@@ -29,4 +29,4 @@ VOLUME ["/data"]
 WORKDIR /data
 
 # Start Pocketmine
-CMD ["/start.sh"]
+CMD ["/start.sh --no-wizard"]
