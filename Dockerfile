@@ -18,8 +18,9 @@ RUN cd /data && curl -sL http://get.pocketmine.net/ | bash -s - -r -v developmen
 COPY server.properties /tmp/server.properties
 RUN wget https://raw.githubusercontent.com/PocketMine/PocketMine-MP/master/start.sh -O /data/start.sh
 RUN chmod 755 /data/start.sh
-RUN wget -O /data/PHP.tar.gz https://bintray.com/pocketmine/PocketMine/download_file?file_path=PHP_7.0.6_x86-64_Linux.tar.gz
-RUN tar -xf PHP.tar.gz /data
+RUN wget -O PHP.tar.gz https://bintray.com/pocketmine/PocketMine/download_file?file_path=PHP_7.0.6_x86-64_Linux.tar.gz
+RUN tar -xf PHP.tar.gz
+ENV PHP_BINARY /bin/php7/bin/php
 
 # Setup User
 RUN useradd -d /data -s /bin/bash --uid 1000 minecraft
