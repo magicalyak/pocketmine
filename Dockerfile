@@ -14,7 +14,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update && \
 
 # Stage Files
 RUN mkdir -p /data
-RUN cd /data && curl -sL http://get.pocketmine.net/ | bash -s - -r -v development
+#RUN cd /data && curl -sL http://get.pocketmine.net/ | bash -s - -r -v development
+RUN wget https://bintray.com/pocketmine/PocketMine/download_file?file_path=PocketMine-MP_1.6dev-27_ef8227a0_API-2.0.0.phar -O PocketMine-MP.phar 
 COPY server.properties /tmp/server.properties
 RUN wget https://raw.githubusercontent.com/PocketMine/PocketMine-MP/master/start.sh -O /data/start.sh
 RUN chmod 755 /data/start.sh
