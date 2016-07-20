@@ -15,13 +15,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update && \
 # Stage Files
 RUN mkdir -p /data
 RUN cd /data
-RUN wget https://bintray.com/pocketmine/PocketMine/download_file?file_path=PocketMine-MP_1.6dev-27_ef8227a0_API-2.0.0.phar -O PocketMine-MP.phar 
+RUN wget https://bintray.com/pocketmine/PocketMine/download_file?file_path=PocketMine-MP_1.6dev-27_ef8227a0_API-2.0.0.phar -O /data/PocketMine-MP.phar 
 COPY server.properties /data/server.properties
 RUN wget https://raw.githubusercontent.com/PocketMine/PocketMine-MP/master/start.sh -O /data/start.sh
 RUN chmod 755 /data/start.sh
-RUN wget -O PHP.tar.gz https://bintray.com/pocketmine/PocketMine/download_file?file_path=PHP_7.0.6_x86-64_Linux.tar.gz
-RUN tar -xf PHP.tar.gz
-#ENV PHP_BINARY /bin/php7/bin/php
+RUN wget -O /data/PHP.tar.gz https://bintray.com/pocketmine/PocketMine/download_file?file_path=PHP_7.0.6_x86-64_Linux.tar.gz
+RUN tar -xf /data/PHP.tar.gz -C /data
+ENV PHP_BINARY /data/bin/php7/bin/php
 
 # Setup User
 RUN useradd -d /data -s /bin/bash --uid 1000 minecraft
@@ -33,4 +33,4 @@ VOLUME /data
 WORKDIR /data
 
 # Start Pocketmine
-CMD ["./start.sh", "--no-wizard"]
+CMD ["/data/start.sh", "--no-wizard"]
