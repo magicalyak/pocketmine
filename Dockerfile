@@ -1,5 +1,5 @@
 # Minecraft PE Server
-FROM fusion/baseimage:0.9.19
+FROM phusion/baseimage:0.9.19
 MAINTAINER  Tom Gamull <tom.gamull@gmail.com>
 
 # Secure and init
