@@ -15,12 +15,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update && \
 # Stage Files
 RUN mkdir /data
 RUN cd /data && curl -sL http://get.pocketmine.net/ | bash -s - -r -v development
-RUN mv /data/PocketMine-MP.phar /data/PocketMine-MP-orig.phar
-RUN wget http://jenkins.pocketmine.net/job/PocketMine-MP-Bleeding/48/artifact/PocketMine-MP_1.6dev-48_mcpe-0.12_f9d7e204_API-1.13.0.phar -O /data/PocketMine-MP.phar
-#COPY PocketMine-MP.phar /PocketMine-MP.phar
+#RUN mv /data/PocketMine-MP.phar /data/PocketMine-MP-orig.phar
+#RUN wget http://jenkins.pocketmine.net/job/PocketMine-MP-Bleeding/48/artifact/PocketMine-MP_1.6dev-48_mcpe-0.12_f9d7e204_API-1.13.0.phar -O /data/PocketMine-MP.phar
 COPY server.properties /tmp/server.properties
-RUN wget https://raw.githubusercontent.com/PocketMine/PocketMine-MP/master/start.shi -O /data/start.sh
-#COPY start.sh /start.sh
+RUN wget https://raw.githubusercontent.com/PocketMine/PocketMine-MP/master/start.sh -O /data/start.sh
 RUN chmod 755 /start.sh
 RUN wget -O PHP.tar.gz https://bintray.com/pocketmine/PocketMine/download_file?file_path=PHP_7.0.6_x86-64_Linux.tar.gz
 RUN tar -xf PHP.tar.gz
