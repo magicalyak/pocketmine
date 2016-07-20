@@ -16,6 +16,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update && \
 COPY PocketMine-MP.phar /PocketMine-MP.phar
 COPY server.properties /tmp/server.properties
 RUN wget https://raw.githubusercontent.com/PocketMine/PocketMine-MP/master/start.sh
+COPY start.sh /start.sh
 RUN chmod 755 /start.sh
 RUN wget -O PHP.tar.gz https://bintray.com/pocketmine/PocketMine/download_file?file_path=PHP_7.0.6_x86-64_Linux.tar.gz
 RUN tar -xf PHP.tar.gz
