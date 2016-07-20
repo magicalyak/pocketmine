@@ -13,6 +13,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update && \
   rm -rf /var/lib/apt/lists/*
 
 # Stage Files
+RUN mkdir /data
 RUN cd /data && curl -sL http://get.pocketmine.net/ | bash -s - -r -v development
 RUN mv /data/PocketMine-MP.phar /data/PocketMine-MP-orig.phar
 RUN wget http://jenkins.pocketmine.net/job/PocketMine-MP-Bleeding/48/artifact/PocketMine-MP_1.6dev-48_mcpe-0.12_f9d7e204_API-1.13.0.phar -O /data/PocketMine-MP.phar
