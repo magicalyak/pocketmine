@@ -7,10 +7,13 @@ RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 CMD ["/sbin/my_init"]
 
 # Update, Install Prerequisites
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y update && \
-  apt-get install -y vim sudo wget perl gcc g++ make automake libtool autoconf m4 gcc-multilib && \
-  apt-get install -y language-pack-en-base software-properties-common python-software-properties && \
-  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN DEBIAN_FRONTEND=noninteractive \
+  apt-get -y update && \
+  apt-get install -y \
+	wget \
+	libtool && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Stage Files
 RUN mkdir -p /data
@@ -27,7 +30,6 @@ RUN useradd -d /data -s /bin/bash --uid 1000 minecraft
 
 # Setup container
 EXPOSE 19132
-WORKDIR /data
 
 # Start Pocketmine
 CMD ["/data/start.sh", "--no-wizard"]
