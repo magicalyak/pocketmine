@@ -14,7 +14,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y update && \
 
 # Stage Files
 RUN mkdir -p /data
-RUN cd /data
 RUN wget https://bintray.com/pocketmine/PocketMine/download_file?file_path=PocketMine-MP_1.6dev-27_ef8227a0_API-2.0.0.phar -O /data/PocketMine-MP.phar 
 COPY server.properties /data/server.properties
 RUN wget https://raw.githubusercontent.com/PocketMine/PocketMine-MP/master/start.sh -O /data/start.sh
@@ -25,7 +24,6 @@ ENV PHP_BINARY /data/bin/php7/bin/php
 
 # Setup User
 RUN useradd -d /data -s /bin/bash --uid 1000 minecraft
-RUN chown -R minecraft:minecraft /data
 
 # Setup container
 EXPOSE 19132
