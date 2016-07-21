@@ -32,7 +32,6 @@ RUN chmod 755 /data/start.sh
 RUN wget -O /data/PHP.tar.gz https://bintray.com/pocketmine/PocketMine/download_file?file_path=PHP_7.0.6_x86-64_Linux.tar.gz
 RUN tar -xf /data/PHP.tar.gz -C /data
 ENV PHP_BINARY /data/bin/php7/bin/php
-RUN sed "s/^zend_extension=.*opcache.so/zend_extension=$(find $(pwd) -name opcache.so | sed 's/\//\\\//g')/g" bin/php7/bin/php.ini | tee bin/php7/bin/php.ini
 
 # Setup User
 RUN useradd -d /data -s /bin/bash --uid 1000 minecraft
