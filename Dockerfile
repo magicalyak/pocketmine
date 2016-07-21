@@ -29,7 +29,6 @@ RUN chown -R minecraft:minecraft /data
 
 # Setup container
 EXPOSE 19132
-VOLUME /data
 WORKDIR /data
 
 # Start Pocketmine
