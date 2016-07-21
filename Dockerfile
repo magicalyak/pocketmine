@@ -11,7 +11,15 @@ RUN DEBIAN_FRONTEND=noninteractive \
   apt-get -y update && \
   apt-get install -y \
 	wget \
-	libtool && \
+	libtool \
+	autoconf \
+	perl \
+	autoconf \
+	gcc-multilib && \
+  apt-get install -y \
+	language-pack-en-base \
+	software-properties-common \
+	python-software-properties && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
