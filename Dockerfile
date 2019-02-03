@@ -31,4 +31,4 @@ EXPOSE 19132/udp
 
 # Start Pocketmine
 #CMD ["/data/start.sh", "--no-wizard"]
-ENTRYPOINT ["/entrypoint.sh && /bin/bash"]
+ENTRYPOINT ["/entrypoint.sh"]

@@ -19,7 +19,7 @@ fi
 
 if [ -f "bedrock_server" ]; then
     echo >&2 "Starting bedrock server...."
-    LD_LIBRARY_PATH=. ./bedrock_server
+    /bin/bash LD_LIBRARY_PATH=. ./bedrock_server
 else
     echo >&2 "Server software not downloaded or unpacked!"
 fi
