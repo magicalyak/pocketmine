@@ -13,7 +13,7 @@ echo "[INFO] Updating to the latest API release."
 #Get ZIP File (note the hardcode URL)
 if ! [ -f bedrock-server.zip ]; then
     echo >&2 "Downloading bedrock server files"
-    wget $BEDROCK_DOWNLOAD_ZIP -O /data/bedrock-server.zip && unzip -n bedrock-server.zip && chown -R bedrock:bedrock /data
+    wget $BEDROCK_DOWNLOAD_ZIP -O /data/bedrock-server.zip && unzip -n /data/bedrock-server.zip && chown -R bedrock:bedrock /data
 fi
 
 if [ -f "bedrock_server" ]; then
