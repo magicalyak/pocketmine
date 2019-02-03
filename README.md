@@ -43,7 +43,7 @@ This allows you to view the logs generated from the pocketmine server in a "tail
     
 *Press control-c to exit*
 
-###To update minecraft pe to latest version:
+### To update minecraft pe to latest version:
 Simply stop the pocketmine container and then start it. the latest version of pocketmine will be downloaded. 
 
 *This assumes you are mapping your configuration to a directory external to the container. If not, you will lose your world...*
@@ -51,6 +51,6 @@ Simply stop the pocketmine container and then start it. the latest version of po
     docker stop pocketmine
     docker start pocketmine
 
-###Changelog
+### Changelog
 
 * **03.02.19:** - version 1.8.1.2 bedrock server.
