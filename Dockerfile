@@ -1,5 +1,5 @@
 # Minecraft PE Server
-FROM phusion/baseimage:0.9.19
+FROM phusion/baseimage:0.11
 MAINTAINER  Tom Gamull <tom.gamull@gmail.com>
 
 # Secure and init
@@ -10,31 +10,24 @@ CMD ["/sbin/my_init"]
 RUN DEBIAN_FRONTEND=noninteractive \
   apt-get -y update && \
   apt-get install -y \
+	unzip \
 	wget \
 	libtool \
-	autoconf \
-	perl \
-	autoconf \
-	gcc-multilib && \
-  apt-get install -y \
-	language-pack-en-base \
-	software-properties-common \
-	python-software-properties && \
+	autoconf && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Stage Files
 COPY server.properties /server.properties.original
 COPY entrypoint.sh /entrypoint.sh
-ENV PHP_BINARY /data/bin/php7/bin/php
 
 # Setup User
-RUN useradd -d /data -s /bin/bash --uid 1000 minecraft
+RUN useradd -d /data -s /bin/bash --uid 1000 bedrock
 RUN chmod +x /entrypoint.sh
-RUN chown minecraft:minecraft /entrypoint.sh
+RUN chown bedrock:bedrock /entrypoint.sh
 
 # Setup container
-EXPOSE 19132
+EXPOSE 19132/udp
 
 # Start Pocketmine
 #CMD ["/data/start.sh", "--no-wizard"]
