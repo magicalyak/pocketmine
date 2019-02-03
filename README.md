@@ -7,7 +7,7 @@ You need to add the BEDROCK_DOWNLOAD_ZIP env to the docker create or run for thi
 
 ### To run pocketmine as a docker container:
 
-    docker run -d -it --restart=always -p 19132:19132/udp -e BEDROCK_DOWNLOAD_ZIP=https://minecraft.azureedge.net/bin-linux/bedrock-server-1.8.1.2.zip --name pocketmine magicalyak/pocketmine
+    docker run -d -p 19132:19132/udp -e BEDROCK_DOWNLOAD_ZIP=https://minecraft.azureedge.net/bin-linux/bedrock-server-1.8.1.2.zip --name pocketmine magicalyak/pocketmine
     
 This creates a new container from the repository, names the container "pocketmine", downloads the latest development build of pocketmine, and maps the ports for client access to the local host. This is not recommend as you will lose your configuration file when th container stops and starts. 
     
@@ -17,7 +17,7 @@ The *recommended* way is to utilize a local directory that is external to the co
     
 Then run the container with these added option:
 
-    docker run -d -it --restart=always -p 19132:19132/udp  -v /srv/pocketmine:/data -e BEDROCK_DOWNLOAD_ZIP=https://minecraft.azureedge.net/bin-linux/bedrock-server-1.8.1.2.zip --name pocketmine magicalyak/pocketmine
+    docker run -d -p 19132:19132/udp  -v /srv/pocketmine:/data -e BEDROCK_DOWNLOAD_ZIP=https://minecraft.azureedge.net/bin-linux/bedrock-server-1.8.1.2.zip --name pocketmine magicalyak/pocketmine
 
 ### To start the container:
 If the container is stoped (run "docker ps -a" to verify), and you wish to start it, run: 
