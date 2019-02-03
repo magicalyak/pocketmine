@@ -1,26 +1,25 @@
 #!/bin/bash
 
-mkdir -p /data
-cd /data
+mkdir -p /data/worlds
+cd /bedrock
 
 if ! [ -e server.properties ]; then
     echo >&2 "[WARN] server.properties is not found in $(pwd). Copying from the original assets."
     cp -p ../server.properties.original server.properties
-    chown minecraft:minecraft server.properties
+    chown bedrock:bedrock server.properties
 fi
 
-echo "[INFO] Updating to the latest 1.6dev and 2.0.0 API release."
-#Get PHAR File (note the hardcode URL)
-if ! [ -e PocketMine-MP.phar ]; then
-    rm -f PocketMine-MP.phar
+echo "[INFO] Updating to the latest API release."
+#Get ZIP File (note the hardcode URL)
+if ! [ -f bedrock-server.zip ]; then
+    echo >&2 "Downloading bedrock server files"
+    wget $BEDROCK_DOWNLOAD_ZIP -O /data/bedrock-server.zip && unzip -n bedrock-server.zip && chown -R bedrock:bedrock /data
 fi
 
-wget https://bintray.com/pocketmine/PocketMine/download_file?file_path=PocketMine-MP_1.6dev-27_ef8227a0_API-2.0.0.phar -O /data/PocketMine-MP.phar
-wget https://raw.githubusercontent.com/PocketMine/PocketMine-MP/master/start.sh -O /data/start.sh
-chmod 755 /data/start.sh
-wget -O /data/PHP.tar.gz https://bintray.com/pocketmine/PocketMine/download_file?file_path=PHP_7.0.6_x86-64_Linux.tar.gz
-tar -xf /data/PHP.tar.gz -C /data
+if [ -f "bedrock_server" ]; then
+    echo >&2 "Starting bedrock server...."
+    LD_LIBRARY_PATH=. ./bedrock_server
+else
+    echo >&2 "Server software not downloaded or unpacked!"
+fi
 
-chown -R minecraft:minecraft /data
-
-/data/start.sh --no-wizard
