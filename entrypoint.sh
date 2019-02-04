@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/bash
 
 mkdir -p /data/worlds
 cd /data
@@ -14,24 +14,8 @@ echo "[INFO] Updating to the latest API release."
 #Get ZIP File (note the hardcode URL)
 if ! [ -f bedrock-server.zip ]; then
     echo >&2 "Downloading bedrock server files"
-    wget https://minecraft.azureedge.net/bin-linux/bedrock-server-1.8.1.2.zip -O /data/bedrock-server.zip && unzip -n bedrock-server.zip && chown -R bedrock:bedrock /data
+    url=$(curl -s https://minecraft.net/en-us/download/server/bedrock/ | grep bin-linux | sed "s/.*href=['\"]\([^'\"]*\)['\"].*/\1/g"); curl $url --output bedrock-server.zip
+    unzip -n bedrock-server.zip
 fi
 
-    echo >&2 "Starting bedrock server...."
-    set -e
-    pipe=/run/minecraft/pipe.$$
-
-    mkfifo $pipe
-    exec 3<> $pipe
-    rm $pipe
-
-    <&3 3>&- LD_LIBRARY_PATH=. ./bedrock_server & pid=$!
-    exec >&3 3<&-
-
-    trap 'echo stop' INT TERM
-    trap : CHLD
-
-    while read -r line; do echo $line; done
-    wait $pid
-    exit $?
-
+LD_LIBRARY_PATH=. ./bedrock_server
