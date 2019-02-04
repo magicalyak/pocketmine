@@ -11,9 +11,9 @@ I also used code from the following people and may not be crediting them properl
 
 ### To create the docker container:
 
-    docker create -p 19132:19132/udp --name pocketmine magicalyak/pocketmine
+    docker create -it -p 19132:19132/udp --name pocketmine magicalyak/pocketmine
 
-This creates the container.  You may want to add --restart=unless-stopped or map volumes like below.
+This creates the container.  You may want to add --restart=unless-stopped or map volumes like below.  You also need the -it command otherwise you can't interact with the console for minecraft.
 
 This creates a new container from the repository, names the container "pocketmine", downloads the latest development build of pocketmine, and maps the ports for client access to the local host. This is not recommend as you will lose your configuration file when the container stops and starts. 
     
@@ -23,7 +23,7 @@ The *recommended* way is to utilize a local directory that is external to the co
     
 Then run the container with these added option:
 
-    docker create -p 19132:19132/udp  -v /srv/pocketmine:/data --name pocketmine magicalyak/pocketmine
+    docker create -it -p 19132:19132/udp  -v /srv/pocketmine:/data --name pocketmine magicalyak/pocketmine
 
 ### To configure the Minecraft PE Server
 
@@ -65,6 +65,8 @@ If you wish to stop the container in order to rebvoot the host os or updaet conf
 ### To interact with pocketmine administration:
 
     docker attach pocketmine
+
+Use CTRL-P and CTRL-Q to detach from attach session (if you CTRL-C or break it'll kill the container)
     
 This allows you to jump into the pocketmine administration session. Type "help" for options. If you enter the command "stop", this will end pocket mine and stop the container. To restart pocketmine with our stopping the container, enter "restart" in the pocket mine admin session.
     
