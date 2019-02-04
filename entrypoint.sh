@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/dash
 
 mkdir -p /data/worlds
 cd /data
@@ -17,10 +17,21 @@ if ! [ -f bedrock-server.zip ]; then
     wget https://minecraft.azureedge.net/bin-linux/bedrock-server-1.8.1.2.zip -O /data/bedrock-server.zip && unzip -n bedrock-server.zip && chown -R bedrock:bedrock /data
 fi
 
-if [ -f "bedrock_server" ]; then
     echo >&2 "Starting bedrock server...."
-    LD_LIBRARY_PATH=. ./bedrock_server
-else
-    echo >&2 "Server software not downloaded or unpacked!"
-fi
+    set -e
+    pipe=/run/minecraft/pipe.$$
+
+    mkfifo $pipe
+    exec 3<> $pipe
+    rm $pipe
+
+    <&3 3>&- LD_LIBRARY_PATH=. ./bedrock_server & pid=$!
+    exec >&3 3<&-
+
+    trap 'echo stop' INT TERM
+    trap : CHLD
+
+    while read -r line; do echo $line; done
+    wait $pid
+    exit $?
 
