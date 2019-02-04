@@ -18,4 +18,5 @@ if ! [ -f bedrock-server.zip ]; then
     unzip -n bedrock-server.zip
 fi
 
-LD_LIBRARY_PATH=. ./bedrock_server
+#LD_LIBRARY_PATH=. ./bedrock_server
+bash
