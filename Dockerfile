@@ -15,24 +15,18 @@ RUN apt-get -y update && \
         libssl1.0.0 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-# Install of bedrock
-RUN  url=$(curl -s https://minecraft.net/en-us/download/server/bedrock/ | grep bin-linux | sed "s/.*href=['\"]\([^'\"]*\)['\"].*/\1/g"); curl $url --output bedrock-server.zip && \
-     unzip bedrock-server.zip -d data && \
-     rm bedrock-server.zip
 
 # Stage Files
-RUN mkdir -p /data/config && \
-    mv /data/server.properties /data/config && \
-    mv /data/permissions.json /data/config && \
-    mv /data/whitelist.json /data/config && \
-    ln -s /data/config/server.properties /data/server.properties && \
-    ln -s /data/config/permissions.json /data/permissions.json && \
-    ln -s /data/config/whitelist.json /data/whitelist.json
+COPY server.properties /server.properties.original
+COPY entrypoint.sh /entrypoint.sh
+COPY run.sh /run.sh
+
+RUN chmod +x /entrypoint.sh
+RUN chmod +x /run.sh
 
 # Setup container
 EXPOSE 19132/udp
 
 # Start Pocketmine
-WORKDIR /data
 ENV LD_LIBRARY_PATH=.
-CMD ./bedrock_server
+ENTRYPOINT ["/bin/bash", "/run.sh"]

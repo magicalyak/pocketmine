@@ -19,12 +19,11 @@ This creates a new container from the repository, names the container "pocketmin
     
 The *recommended* way is to utilize a local directory that is external to the container for your configuration files. This will allow persistent configuration if you remove the container, or if you wish to edit the configuration files manually and restart pocketmine. To do this, first create a foler on the host where you wish to store these:
 
-    mkdir /srv/pocketmine-config
-    mkdir /srv/pocketmine-worlds
+    mkdir /srv/pocketmine
     
 Then run the container with these added option:
 
-    docker create -p 19132:19132/udp  -v /srv/pocketmine-config:/data/config -v /srv/pocketmine-worlds:/data/worlds --name pocketmine magicalyak/pocketmine
+    docker create -p 19132:19132/udp  -v /srv/pocketmine:/data --name pocketmine magicalyak/pocketmine
 
 ### To configure the Minecraft PE Server
 
