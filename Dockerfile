@@ -30,3 +30,5 @@ EXPOSE 19132/udp
 # Start Pocketmine
 ENV LD_LIBRARY_PATH=.
 ENTRYPOINT ["/bin/bash", "/run.sh"]
+WORKDIR /data
+CMD ["bedrock_server"]

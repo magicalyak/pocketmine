@@ -21,4 +21,3 @@ fi
 
 #LD_LIBRARY_PATH=. ./bedrock_server
 echo "Please attach and run LD_LIBRARY_PATH=. ./bedrock_server inside the container"
-exec gosu LD_LIBRARY_PATH=. ./bedrock_server
