@@ -1,5 +1,5 @@
 # Minecraft PE Server
-FROM ubuntu:latest
+FROM phusion/baseimage:0.11
 MAINTAINER  Tom Gamull <tom.gamull@gmail.com>
 
 # Secure and init
@@ -11,15 +11,16 @@ RUN DEBIAN_FRONTEND=noninteractive \
   apt-get -y update && \
   apt-get install -y \
 	unzip \
-	wget \
 	curl \
         libcurl4 \
         libssl1.0.0 && \
   apt-get clean && \
-  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-  wget https://minecraft.azureedge.net/bin-linux/bedrock-server-1.8.1.2.zip -O bedrock-server.zip && \
-  unzip bedrock-server.zip -d bedrock-server && \
-  rm bedrock-server.zip
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Install of bedrock
+#RUN  wget https://minecraft.azureedge.net/bin-linux/bedrock-server-1.8.1.2.zip -O bedrock-server.zip && \
+RUN  url=$(curl -s https://minecraft.net/en-us/download/server/bedrock/ | grep bin-linux | sed "s/.*href=['\"]\([^'\"]*\)['\"].*/\1/g"); curl $url --output bedrock-server.zip && \
+     unzip bedrock-server.zip -d bedrock-server && \
+     rm bedrock-server.zip
 
 # Stage Files
 COPY server.properties /server.properties.original
@@ -41,11 +42,10 @@ RUN mkdir /bedrock-server/config && \
 # Setup container
 EXPOSE 19132/udp
 
-VOLUME /bedrock-server/worlds /bedrock-server/config
-
 # Start Pocketmine
 #CMD ["/data/start.sh", "--no-wizard"]
 #ENTRYPOINT ["/entrypoint.sh"]
 WORKDIR /bedrock-server
 ENV LD_LIBRARY_PATH=.
-CMD ./bedrock_server
+#CMD ./bedrock_server
+CMD bash
