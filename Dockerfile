@@ -41,6 +41,8 @@ RUN mkdir /bedrock-server/config && \
 # Setup container
 EXPOSE 19132/udp
 
+VOLUME /bedrock-server/worlds /bedrock-server/config
+
 # Start Pocketmine
 #CMD ["/data/start.sh", "--no-wizard"]
 #ENTRYPOINT ["/entrypoint.sh"]

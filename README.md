@@ -4,10 +4,10 @@ This is an implementation of the [Pocketmine] (https://www.pocketmine.net) LAN s
 This was original under nmarus/docker-pocketmine but his version does not work on kids kindles which is what this is for. Also substituted phusion/baseimage for ubuntu and moved commands to the enterypoint.sh bash script (look there for modifying items if you fork). I happy to share this work with others, just contact me and let me know if you're using this and like it.  It should work with all the new Minecraft Pocket Edition clients (most other github repos don't).
 I also used code from the following people and may not be crediting them properly.  The reason for a new repo is use in Rockstor Rockons project, otherwise would have just forked.
 
-[nmarus](https://github.com/nmarus/docker-pocketmine)
-[nguyer](https://github.com/nguyer/bedrock-server)
-[Roemer](https://github.com/Roemer/bedrock-server)
-[subhaze](https://github.com/subhaze/bedrock-server)
+* [nmarus](https://github.com/nmarus/docker-pocketmine)
+* [nguyer](https://github.com/nguyer/bedrock-server)
+* [Roemer](https://github.com/Roemer/bedrock-server)
+* [subhaze](https://github.com/subhaze/bedrock-server)
 
 ### To create the docker container:
 
