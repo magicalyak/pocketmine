@@ -8,6 +8,7 @@ I also used code from the following people and may not be crediting them properl
 * [nguyer](https://github.com/nguyer/bedrock-server)
 * [Roemer](https://github.com/Roemer/bedrock-server)
 * [subhaze](https://github.com/subhaze/bedrock-server)
+* [toasterlint](https://github.com/toasterlint/minecraft_bedrock)
 
 ### To create the docker container:
 
