@@ -19,3 +19,4 @@ if ! [ -f bedrock-server.zip ]; then
 fi
 
 #LD_LIBRARY_PATH=. ./bedrock_server
+echo "Please attach and run LD_LIBRARY_PATH=. ./bedrock_server inside the container"
