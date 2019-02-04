@@ -19,20 +19,19 @@ RUN DEBIAN_FRONTEND=noninteractive \
 # Install of bedrock
 #RUN  wget https://minecraft.azureedge.net/bin-linux/bedrock-server-1.8.1.2.zip -O bedrock-server.zip && \
 RUN  url=$(curl -s https://minecraft.net/en-us/download/server/bedrock/ | grep bin-linux | sed "s/.*href=['\"]\([^'\"]*\)['\"].*/\1/g"); curl $url --output bedrock-server.zip && \
-     unzip bedrock-server.zip -d bedrock-server && \
+     unzip bedrock-server.zip -d data && \
      rm bedrock-server.zip
 
 # Stage Files
 COPY server.properties /server.properties.original
-#COPY entrypoint.sh /entrypoint.sh
 
-RUN mkdir /bedrock-server/config && \
-    mv /bedrock-server/server.properties /bedrock-server/config && \
-    mv /bedrock-server/permissions.json /bedrock-server/config && \
-    mv /bedrock-server/whitelist.json /bedrock-server/config && \
-    ln -s /bedrock-server/config/server.properties /bedrock-server/server.properties && \
-    ln -s /bedrock-server/config/permissions.json /bedrock-server/permissions.json && \
-    ln -s /bedrock-server/config/whitelist.json /bedrock-server/whitelist.json
+RUN mkdir -p /data/config && \
+    mv /data/server.properties /data/config && \
+    mv /data/permissions.json /data/config && \
+    mv /data/whitelist.json /data/config && \
+    ln -s /data/config/server.properties /data/server.properties && \
+    ln -s /data/config/permissions.json /data/permissions.json && \
+    ln -s /data/config/whitelist.json /data/whitelist.json
 
 # Setup User
 #RUN useradd -d /bedrock-server -s /bin/bash --uid 1000 bedrock
@@ -45,7 +44,6 @@ EXPOSE 19132/udp
 # Start Pocketmine
 #CMD ["/data/start.sh", "--no-wizard"]
 #ENTRYPOINT ["/entrypoint.sh"]
-WORKDIR /bedrock-server
+WORKDIR /data
 ENV LD_LIBRARY_PATH=.
-#CMD ./bedrock_server
-CMD bash
+CMD ./bedrock_server

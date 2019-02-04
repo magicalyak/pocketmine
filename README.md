@@ -24,7 +24,7 @@ The *recommended* way is to utilize a local directory that is external to the co
     
 Then run the container with these added option:
 
-    docker create -p 19132:19132/udp  -v /srv/pocketmine-config:/bedrock-server/config -v /srv/pocketmine-worlds:/bedrock-server/worlds --name pocketmine magicalyak/pocketmine
+    docker create -p 19132:19132/udp  -v /srv/pocketmine-config:/data/config -v /srv/pocketmine-worlds:/data/worlds --name pocketmine magicalyak/pocketmine
 
 ### To configure the Minecraft PE Server
 
