@@ -19,4 +19,3 @@ if ! [ -f bedrock-server.zip ]; then
 fi
 
 #LD_LIBRARY_PATH=. ./bedrock_server
-bash
