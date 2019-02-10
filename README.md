@@ -113,5 +113,6 @@ Simply stop the pocketmine container and then start it. the latest version of po
 
 ### Changelog
 
-* **03.02.19:** - version 1.8.1.2 bedrock server.
+* **10.02.19:** - updated to v1.9.0.15
 * **04.02.19:** - fixed console commands not working [Issue 6](https://github.com/magicalyak/pocketmine/issues/6)
+* **03.02.19:** - version 1.8.1.2 bedrock server.
