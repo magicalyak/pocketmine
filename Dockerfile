@@ -20,8 +20,7 @@ RUN apt-get -y update && \
     useradd -u 1000 -g 1000 -r minecraft
 
 # Stage Files
-#RUN wget -O /opt/bedrock_server.zip $(wget -q -O - https://minecraft.net/en-us/download/server/bedrock/ | xmllint --html --xpath '/html/body/main/div/div/div[2]/div/div[1]/div[2]/div[2]/div/a' - 2>/dev/null | grep -zoP '<a[^<][^<]*href="\K[^"]+')
-RUN wget -O /opt/bedrock_server.zip https://minecraft.azureedge.net/bin-linux/bedrock-server-1.9.0.15.zip
+RUN wget -O /opt/bedrock_server.zip $(wget -q -O - https://minecraft.net/en-us/download/server/bedrock/ | xmllint --html --xpath '/html/body/main/div/div/div[2]/div/div[1]/div[2]/div[2]/div/a' - 2>/dev/null | grep -zoP '<a[^<][^<]*href="\K[^"]+')
 ADD start.sh /opt/start.sh
 RUN chown -R minecraft:minecraft /data && chmod +x /opt/start.sh
 
