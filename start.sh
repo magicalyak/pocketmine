@@ -2,7 +2,7 @@
 
 if [ ! -f /data/bedrock_server ]; then
 	echo "Extracting server..."
-	unzip /opt/bedrock_server.zip -d /data
+	unzip -o /opt/bedrock_server.zip -d /data
 fi
 
 cd /data
