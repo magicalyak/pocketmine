@@ -6,7 +6,7 @@ LABEL build_date="2020-07-26"
 
 # Secure and init
 RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
-CMD ["/sbin/my_init"]
+#CMD ["/sbin/my_init"]
 
 # Update, Install Prerequisites
 RUN apt-get -y update && \
