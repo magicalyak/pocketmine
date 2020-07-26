@@ -34,9 +34,7 @@ RUN  if [ "$VERSION" = "latest" ] ; then \
         echo "Setting VERSION to $LATEST_VERSION" ; \
     else echo "Using VERSION of $VERSION"; \
     fi && \
-    curl https://minecraft.azureedge.net/bin-linux/bedrock-server-${VERSION}.zip --output bedrock-server.zip && \
-    unzip bedrock-server.zip -d bedrock-server && \
-    rm bedrock-server.zip
+    curl https://minecraft.azureedge.net/bin-linux/bedrock-server-${VERSION}.zip --output bedrock-server.zip 
 #RUN wget -O /opt/bedrock_server.zip $(wget -q -O - https://minecraft.net/en-us/download/server/bedrock/ | xmllint --html --xpath '/html/body/main/div/div/div[2]/div/div[1]/div[2]/div[2]/div/a' - 2>/dev/null | grep -zoP '<a[^<][^<]*href="\K[^"]+')
 RUN mkdir /data/config && \
     mv /data/server.properties /data/config && \
