@@ -1,5 +1,5 @@
 # Minecraft PE Server
-FROM phusion/baseimage
+FROM phusion/baseimage:bionic-1.0.0
 
 LABEL maintainer="Tom Gamull <tom.gamull@gmail.com>"
 LABEL build_date="2020-07-26"
