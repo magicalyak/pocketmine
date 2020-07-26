@@ -1,6 +1,8 @@
 # Minecraft PE Server
 FROM phusion/baseimage
-MAINTAINER  Tom Gamull <tom.gamull@gmail.com>
+
+LABEL maintainer="Tom Gamull <tom.gamull@gmail.com>"
+LABEL build_date="2020-07-26"
 
 # Secure and init
 RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
