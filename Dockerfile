@@ -1,5 +1,5 @@
 # Minecraft PE Server
-FROM phusion/baseimage:0.11
+FROM phusion/baseimage
 MAINTAINER  Tom Gamull <tom.gamull@gmail.com>
 
 # Secure and init
