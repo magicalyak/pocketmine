@@ -34,15 +34,7 @@ RUN  if [ "$VERSION" = "latest" ] ; then \
         echo "Setting VERSION to $LATEST_VERSION" ; \
     else echo "Using VERSION of $VERSION"; \
     fi && \
-    curl https://minecraft.azureedge.net/bin-linux/bedrock-server-${VERSION}.zip --output bedrock-server.zip 
-#RUN wget -O /opt/bedrock_server.zip $(wget -q -O - https://minecraft.net/en-us/download/server/bedrock/ | xmllint --html --xpath '/html/body/main/div/div/div[2]/div/div[1]/div[2]/div[2]/div/a' - 2>/dev/null | grep -zoP '<a[^<][^<]*href="\K[^"]+')
-RUN mkdir /data/config && \
-    mv /data/server.properties /data/config && \
-    mv /data/permissions.json /data/config && \
-    mv /data/whitelist.json /data/config && \
-    ln -s /data/config/server.properties /data/server.properties && \
-    ln -s /data/config/permissions.json /data/permissions.json && \
-    ln -s /data/config/whitelist.json /data/whitelist.json
+    curl https://minecraft.azureedge.net/bin-linux/bedrock-server-${VERSION}.zip --output bedrock-server.zip
 
 ADD start.sh /opt/start.sh
 RUN chown -R minecraft:minecraft /data && chmod +x /opt/start.sh
@@ -50,7 +42,7 @@ RUN chown -R minecraft:minecraft /data && chmod +x /opt/start.sh
 USER minecraft:minecraft
 RUN cd /data
 
-VOLUME /data/worlds /data/config
+VOLUME /data
 WORKDIR /data
 
 # Setup container
