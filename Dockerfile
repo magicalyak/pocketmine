@@ -1,6 +1,7 @@
 # Minecraft Bedrock Server
 # Using Debian slim for minimal size with glibc compatibility
-FROM --platform=linux/amd64 debian:bookworm-slim
+# Using official Debian image from Docker Hub
+FROM --platform=linux/amd64 debian:12-slim
 
 LABEL maintainer="Tom Gamull <tom.gamull@gmail.com>"
 LABEL build_date="2025-09-19"
