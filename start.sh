@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ ! -f /data/bedrock_server ]; then
 	echo "Extracting server..."
-	unzip -o /opt/bedrock_server.zip -d /data
+	unzip -o /bedrock-server.zip -d /data
 	mkdir /data/config && \
     mv /data/server.properties /data/config && \
     mv /data/permissions.json /data/config && \

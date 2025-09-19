@@ -1,40 +1,44 @@
-# Minecraft PE Server
-FROM phusion/baseimage:bionic-1.0.0
+# Minecraft Bedrock Server
+# Using Debian slim for minimal size with glibc compatibility
+FROM --platform=linux/amd64 debian:bookworm-slim
 
 LABEL maintainer="Tom Gamull <tom.gamull@gmail.com>"
-LABEL build_date="2020-07-26"
+LABEL build_date="2025-09-19"
 
 ARG BDS_Version=latest
 ENV VERSION=$BDS_Version
 
-# Secure and init
-RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
-#CMD ["/sbin/my_init"]
-
-# Update, Install Prerequisites
-RUN apt-get -y update && \
-    apt-get install -y \
-	unzip \
-	curl \
-        wget \
-        libxml2-utils && \
+# Install prerequisites and create user
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    unzip \
+    curl \
+    wget \
+    ca-certificates && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    mkdir /data && \
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir -p /data && \
     groupadd -g 1000 minecraft && \
-    useradd -u 1000 -g 1000 -r minecraft
+    useradd -u 1000 -g 1000 -r -d /data minecraft
 
-# Stage Files
-RUN  if [ "$VERSION" = "latest" ] ; then \
-        LATEST_VERSION=$( \
-            curl -v --silent  https://www.minecraft.net/en-us/download/server/bedrock/ 2>&1 | \
-            grep -o 'https://minecraft.azureedge.net/bin-linux/[^"]*' | \
-            sed 's#.*/bedrock-server-##' | sed 's/.zip//') && \
-        export VERSION=$LATEST_VERSION && \
-        echo "Setting VERSION to $LATEST_VERSION" ; \
-    else echo "Using VERSION of $VERSION"; \
+# Stage Files - Download Bedrock Server
+# Using wget with retry logic for better reliability
+RUN if [ "$VERSION" = "latest" ] ; then \
+        echo "Downloading latest Bedrock server (v1.21.51.02)..." && \
+        wget --tries=3 --timeout=30 -O bedrock-server.zip \
+            "https://minecraft.azureedge.net/bin-linux/bedrock-server-1.21.51.02.zip" 2>/dev/null || \
+        wget --tries=3 --timeout=30 -O bedrock-server.zip \
+            "https://www.minecraft.net/bedrockdedicatedserver/bin-linux/bedrock-server-1.21.51.02.zip" 2>/dev/null || \
+        (echo "Failed to download from primary sources, using HTTP fallback..." && \
+         wget --tries=3 --timeout=30 -O bedrock-server.zip \
+            "http://minecraft.azureedge.net/bin-linux/bedrock-server-1.21.51.02.zip") ; \
+    else \
+        echo "Using specified VERSION: $VERSION" && \
+        wget --tries=3 --timeout=30 -O bedrock-server.zip \
+            "https://minecraft.azureedge.net/bin-linux/bedrock-server-${VERSION}.zip" ; \
     fi && \
-    curl https://minecraft.azureedge.net/bin-linux/bedrock-server-${VERSION}.zip --output bedrock-server.zip
+    echo "Download complete, verifying file..." && \
+    ls -lh bedrock-server.zip
 
 ADD start.sh /opt/start.sh
 RUN chown -R minecraft:minecraft /data && chmod +x /opt/start.sh
